@@ -9,6 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     container:
       image: quay.io/singularity/singularity:v3.10.3
       options: --privileged
@@ -23,5 +26,5 @@ jobs:
 
       - name: Push Singularity image to GHCR
         run: |         
-          echo ${{ secrets.GITHUB_TOKEN }} | singularity remote login -u ${{ secrets.GHCR_USERNAME }} --password-stdin oras://ghcr.io
-          singularity push plantrnafm_preprocessing.sif oras://ghcr.io/${GITHUB_REPOSITORY}:latest
+          echo ${{ secrets.GITHUB_TOKEN }} | singularity remote login -u ${{ github.actor }} --password-stdin oras://ghcr.io
+          singularity push plantrnafm_preprocessing.sif oras://ghcr.io/${{ github.repository }}:latest

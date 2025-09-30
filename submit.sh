@@ -11,4 +11,4 @@
 module load nextflow
 
 # Run the Nextflow pipeline
-nextflow run main.nf 
+nextflow run -resume main.nf 

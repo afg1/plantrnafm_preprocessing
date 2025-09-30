@@ -9,11 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    matrix:
-        singularity_version:
-          - '3.10.3'
     container:
-      image: quay.io/singularity/singularity:v${{ matrix.singularity_version }}
+      image: quay.io/singularity/singularity:v3.10.3
       options: --privileged
 
     steps:

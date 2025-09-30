@@ -46,6 +46,7 @@ process makeblastdb {
 
 process tblastn {
     label 'cpu_heavy'
+    errorStrategy 'ignore'
     tag "Running tblastn for ${species_id}"
     publishDir "${params.outdir}/tblastn_results", mode: 'copy'
 

@@ -9,7 +9,6 @@ From: ubuntu:22.04
     apt-get update && apt-get install -y \
         build-essential \
         wget \
-        python3.12 \
         python3-pip 
 
     # Install BLAST+
@@ -23,7 +22,7 @@ From: ubuntu:22.04
     pip install uv
 
     # Create a virtual environment and install dependencies
-    python3.12 -m venv /opt/venv
+    python3 -m venv /opt/venv
     . /opt/venv/bin/activate
     uv pip install --system \
         black==24.4.2 \

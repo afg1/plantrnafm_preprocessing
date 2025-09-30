@@ -11,4 +11,4 @@
 module load nextflow
 
 # Run the Nextflow pipeline
-nextflow run main.nf -profile slurm
+nextflow run main.nf 

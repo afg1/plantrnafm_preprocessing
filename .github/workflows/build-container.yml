@@ -1,0 +1,30 @@
+
+name: Build and Push Singularity Container
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Singularity image
+        uses: sylabs/singularity-actions/build@v1
+        with:
+          image-path: plantrnafm_preprocessing.sif
+          definition-file: Singularity.def
+
+      - name: Push Singularity image to GHCR
+        uses: sylabs/singularity-actions/push@v1
+        with:
+          image-path: plantrnafm_preprocessing.sif
+          registry: ghcr.io
+          registry-username: ${{ github.actor }}
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
+          image-name: ${{ github.repository }}
+          image-tag: latest

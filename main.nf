@@ -34,9 +34,9 @@ process makeblastdb {
 
     output:
     // Pass database files and proteome to the next step
-    tuple val(species_id), path("${species_id}_db.*"), path(proteome), name: 'db_ch'
+    tuple val(species_id), path("${species_id}_db.*"), path(proteome), emit: 'db_ch'
     // Pass transcriptome fasta for post-processing step
-    tuple val(species_id), path(transcriptome), name: 'fasta_ch'
+    tuple val(species_id), path(transcriptome), emit: 'fasta_ch'
 
     script:
     """
@@ -53,7 +53,7 @@ process tblastn {
     tuple val(species_id), path(db), path(proteome)
 
     output:
-    tuple val(species_id), path("${species_id}_tbn_results.txt"), name: 'tblastn_ch'
+    tuple val(species_id), path("${species_id}_tbn_results.txt"), emit: 'tblastn_ch'
 
     script:
     """

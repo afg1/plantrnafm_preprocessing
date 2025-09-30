@@ -63,7 +63,8 @@ process tblastn {
             -out ${species_id}_tbn_results.txt \
             -outfmt 6 \
             -evalue 1e-10 \
-            -qcov_hsp_perc 70.0
+            -qcov_hsp_perc 70.0 \
+            -num_threads ${task.cpus}
     """
 }
 

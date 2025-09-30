@@ -13,10 +13,10 @@ From: ubuntu:22.04
 
     # Install BLAST+
     cd /opt
-    wget https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-blast-2.15.0+-x64-linux.tar.gz
-    tar -zxf ncbi-blast-2.15.0+-x64-linux.tar.gz
-    rm ncbi-blast-2.15.0+-x64-linux.tar.gz
-    export PATH="/opt/ncbi-blast-2.15.0+/bin:$PATH"
+    wget https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-blast-2.17.0+-x64-linux.tar.gz
+    tar -zxf ncbi-blast-2.17.0+-x64-linux.tar.gz
+    rm ncbi-blast-2.17.0+-x64-linux.tar.gz
+    export PATH="/opt/ncbi-blast-2.17.0+/bin:$PATH"
 
     # Install uv
     pip install uv
@@ -32,6 +32,6 @@ From: ubuntu:22.04
         ruff==0.4.4
 
 %environment
-    export PATH="/opt/ncbi-blast-2.15.0+/bin:/opt/venv/bin:$PATH"
+    export PATH="/opt/ncbi-blast-2.17.0+/bin:/opt/venv/bin:$PATH"
     . /opt/venv/bin/activate
 

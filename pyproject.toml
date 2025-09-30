@@ -1,0 +1,10 @@
+[project]
+name = "plantrnafm-preprocessing"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "black>=25.9.0",
+    "polars>=1.33.1",
+]

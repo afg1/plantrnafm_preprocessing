@@ -1,0 +1,39 @@
+
+
+Bootstrap: docker
+From: ubuntu:22.04
+
+%post
+    # Basic setup
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update && apt-get install -y \
+        build-essential \
+        wget \
+        python3.12 \
+        python3-pip \
+        python3.12-venv
+
+    # Install BLAST+
+    cd /opt
+    wget https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-blast-2.15.0+-x64-linux.tar.gz
+    tar -zxf ncbi-blast-2.15.0+-x64-linux.tar.gz
+    rm ncbi-blast-2.15.0+-x64-linux.tar.gz
+    export PATH="/opt/ncbi-blast-2.15.0+/bin:$PATH"
+
+    # Install uv
+    pip install uv
+
+    # Create a virtual environment and install dependencies
+    python3.12 -m venv /opt/venv
+    . /opt/venv/bin/activate
+    uv pip install --system \
+        black==24.4.2 \
+        polars==0.20.21 \
+        pyarrow==16.1.0 \
+        pyfastx==2.3.2 \
+        ruff==0.4.4
+
+%environment
+    export PATH="/opt/ncbi-blast-2.15.0+/bin:/opt/venv/bin:$PATH"
+    . /opt/venv/bin/activate
+

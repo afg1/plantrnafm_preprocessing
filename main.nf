@@ -25,6 +25,7 @@ workflow {
 // --- Processes ---
 
 process makeblastdb {
+    label 'cpu_light'
     tag "Make BLAST DB for ${species_id}"
     publishDir "${params.outdir}/blast_db", mode: 'copy', pattern: "${species_id}_db.*"
 
@@ -44,6 +45,7 @@ process makeblastdb {
 }
 
 process tblastn {
+    label 'cpu_heavy'
     tag "Running tblastn for ${species_id}"
     publishDir "${params.outdir}/tblastn_results", mode: 'copy'
 
@@ -65,6 +67,7 @@ process tblastn {
 }
 
 process post_process {
+    label 'cpu_medium'
     tag "Processing alignments for ${species_id}"
     publishDir "${params.outdir}/labeled_sequences", mode: 'copy'
 

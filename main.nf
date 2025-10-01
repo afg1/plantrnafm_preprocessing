@@ -81,7 +81,7 @@ process post_process {
 
     script:
     """
-    python process_alignments.py \
+    process_alignments.py \
         --tblastn ${tblastn_file} \
         --fasta ${transcriptome_fasta} \
         --output ${species_id}.parquet

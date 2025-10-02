@@ -10,7 +10,8 @@ From: ubuntu:22.04
         build-essential \
         wget \
         python3-pip \
-        python3-venv
+        python3-venv \
+        curl
 
     # Install BLAST+
     cd /opt

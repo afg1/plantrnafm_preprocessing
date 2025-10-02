@@ -25,7 +25,7 @@ From: ubuntu:22.04
     # Create a virtual environment and install dependencies
     python3 -m venv /opt/venv
     . /opt/venv/bin/activate
-    uv pip install --system \
+    uv pip install \
         black \
         polars \
         pyarrow \

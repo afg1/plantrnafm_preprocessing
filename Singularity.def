@@ -22,7 +22,9 @@ From: ubuntu:22.04
 
     curl -LsSf https://astral.sh/uv/install.sh | sh
 
-    $HOME/.local/bin/uv pip install --system \
+    $HOME/.local/bin/uv venv --python 3.12 /opt/venv
+
+    $HOME/.local/bin/uv pip install\
         black \
         polars \
         pyarrow \
@@ -30,6 +32,6 @@ From: ubuntu:22.04
         ruff
 
 %environment
-    export PATH="/opt/ncbi-blast-2.17.0+/bin:$HOME/.local/bin/:$PATH"
+    export PATH="/opt/ncbi-blast-2.17.0+/bin:$HOME/.local/bin/:/opt/venv/bin:$PATH"
 
 

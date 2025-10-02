@@ -19,7 +19,7 @@ From: ubuntu:22.04
     rm ncbi-blast-2.17.0+-x64-linux.tar.gz
     export PATH="/opt/ncbi-blast-2.17.0+/bin:$PATH"
 
-    pip install \
+    pip3 install \
         black \
         polars \
         pyarrow \

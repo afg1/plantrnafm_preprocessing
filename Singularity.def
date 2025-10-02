@@ -19,13 +19,7 @@ From: ubuntu:22.04
     rm ncbi-blast-2.17.0+-x64-linux.tar.gz
     export PATH="/opt/ncbi-blast-2.17.0+/bin:$PATH"
 
-    # Install uv
-    pip install uv
-
-    # Create a virtual environment and install dependencies
-    python3 -m venv /opt/venv
-    . /opt/venv/bin/activate
-    uv pip install \
+    pip install \
         black \
         polars \
         pyarrow \
@@ -33,6 +27,6 @@ From: ubuntu:22.04
         ruff
 
 %environment
-    export PATH="/opt/ncbi-blast-2.17.0+/bin:/opt/venv/bin:$PATH"
-    . /opt/venv/bin/activate
+    export PATH="/opt/ncbi-blast-2.17.0+/bin:$PATH"
+
 

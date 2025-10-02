@@ -23,7 +23,7 @@ From: ubuntu:22.04
 
     # Create venv and install packages
     /root/.local/bin/uv venv --python 3.12 /opt/venv
-    /opt/venv/bin/uv pip install \
+    /root/.local/bin/uv pip install \
         black \
         polars \
         pyarrow \

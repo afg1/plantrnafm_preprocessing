@@ -23,7 +23,7 @@ From: ubuntu:22.04
     curl -LsSf https://astral.sh/uv/install.sh | sh
 
     $HOME/.local/bin/uv venv --python 3.12 /opt/venv
-    source /opt/venv/bin/activate
+    . /opt/venv/bin/activate
     $HOME/.local/bin/uv pip install\
         black \
         polars \

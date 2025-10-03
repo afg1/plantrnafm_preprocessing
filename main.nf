@@ -72,6 +72,7 @@ process post_process {
     label 'cpu_medium'
     tag "Processing alignments for ${species_id}"
     publishDir "${params.outdir}/labeled_sequences", mode: 'copy'
+    errorStrategy 'ignore'
 
     input:
     tuple val(species_id), path(tblastn_file), path(transcriptome_fasta)

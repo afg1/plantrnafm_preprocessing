@@ -22,7 +22,7 @@ From: ubuntu:22.04
     export PATH="/root/.local/bin:$PATH"
 
     # Create venv and install packages
-    /root/.local/bin/uv venv --python 3.12 /opt/venv
+    /root/.local/bin/uv venv --python 3.10 /opt/venv
     /root/.local/bin/uv pip install --system \
         black \
         polars \

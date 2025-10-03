@@ -1,5 +1,5 @@
 
-name: Build and Push Singularity Container
+name: Build and Push Docker Container
 
 on:
   push:
@@ -12,19 +12,27 @@ jobs:
     permissions:
       contents: read
       packages: write
-    container:
-      image: quay.io/singularity/singularity:v3.10.3
-      options: --privileged
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build Container
-        run: |
-          sudo -E singularity build plantrnafm_preprocessing.sif Singularity.def
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
 
-      - name: Push Singularity image to GHCR
-        run: |         
-          echo ${{ secrets.GITHUB_TOKEN }} | singularity remote login -u ${{ github.actor }} --password-stdin oras://ghcr.io
-          singularity push plantrnafm_preprocessing.sif oras://ghcr.io/${{ github.repository }}:latest
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/${{ github.repository }}:latest

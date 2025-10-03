@@ -21,7 +21,7 @@ ENV PATH="/root/.local/bin:${PATH}"
 
 # Create venv and install packages
 RUN /root/.local/bin/uv venv --python 3.10 /opt/venv
-RUN /root/.local/bin/uv pip install --system \
+RUN . /opt/venv/bin/activate && uv pip install \
     black \
     polars \
     pyarrow \

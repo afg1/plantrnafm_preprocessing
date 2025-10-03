@@ -30,8 +30,5 @@ From: ubuntu:22.04
         pyfastx \
         ruff
 
-%files
-    environment.sh /etc/environment.sh
-
 %environment
-    . /etc/environment.sh
+    export SINGULARITY_PREPEND_PATH="/opt/venv/bin:/opt/ncbi-blast-2.17.0+/bin"

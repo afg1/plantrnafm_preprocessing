@@ -4,6 +4,7 @@ import argparse
 from pathlib import Path
 
 import polars as pl
+import polars.selectors as cs
 import pyfastx
 
 
@@ -39,13 +40,14 @@ def process_alignments(tblastn_output: Path, transcriptome_fasta: Path, output_p
     best_hits = df.group_by("sseqid").agg(pl.col("bitscore").arg_max()).select(
         pl.col("sseqid"), pl.col("bitscore").alias("best_hit_idx")
     )
-    df = df.join(best_hits, on="sseqid").filter(pl.col("bitscore").arg_max() == pl.col("best_hit_idx"))
+    grouped = df.group_by("sseqid").agg(pl.col("*"))
+    good_hits = grouped.join(best_hits, on='sseqid').with_columns(cs.list().list.get(pl.col("best_hit_idx")))
 
     # Load the transcriptome
     transcripts = pyfastx.Fasta(str(transcriptome_fasta))
 
     records = []
-    for row in df.iter_rows(named=True):
+    for row in good_hits.iter_rows(named=True):
         transcript_id = row["sseqid"]
         if transcript_id not in transcripts:
             continue

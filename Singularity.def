@@ -30,6 +30,8 @@ From: ubuntu:22.04
         pyfastx \
         ruff
 
+%files
+    environment.sh /etc/environment.sh
+
 %environment
-    export VIRTUAL_ENV=/opt/venv
-    export PATH="/opt/venv/bin:/opt/ncbi-blast-2.17.0+/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    . /etc/environment.sh

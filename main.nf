@@ -39,7 +39,7 @@ process mmseqs_search {
     """
     mmseqs easy-search ${proteome} ${transcriptome} ${species_id}_results.tsv tmp \
             --search-type 3 \
-            --format-output "qseqid,sseqid,pident,length,mismatch,gapopen,qstart,qend,sstart,send,evalue,bitscore" \
+            --format-output "query,target,pident,alnlen,mismatch,gapopen,qstart,qend,tstart,tend,evalue,bits" \
             --threads ${task.cpus}
     """
 }

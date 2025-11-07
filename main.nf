@@ -33,7 +33,7 @@ process mmseqs_search {
     tuple val(species_id), path(transcriptome), path(proteome)
 
     output:
-    tuple val(species_id), path("${species_id}_results.tsv"), path(transcriptome)
+    tuple val(species_id), path("${species_id}_results.tsv"), path(transcriptome), path(proteome)
 
     script:
     """
@@ -51,7 +51,7 @@ process post_process {
     errorStrategy 'ignore'
 
     input:
-    tuple val(species_id), path(mmseqs_file), path(transcriptome_fasta)
+    tuple val(species_id), path(mmseqs_file), path(transcriptome_fasta), path(proteome_fasta)
 
     output:
     path("${species_id}.parquet")
@@ -61,6 +61,7 @@ process post_process {
     process_alignments.py \
         --tblastn ${mmseqs_file} \
         --fasta ${transcriptome_fasta} \
+        --proteome ${proteome_fasta} \
         --output ${species_id}.parquet
     """
 }

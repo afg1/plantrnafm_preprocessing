@@ -35,10 +35,8 @@ def process_alignments(tblastn_output: Path, transcriptome_fasta: Path, proteome
         new_columns=list(mmseqs_schema.keys()),
         schema=mmseqs_schema,
     )
-
     # Filter to keep only self-hits (where protein matches its own source transcript)
     df = df.filter(pl.col("query") == pl.col("target"))
-
     # Get the best hit for each transcript (target)
     best_hits = df.group_by("target").agg(pl.col("bits").arg_max()).select(
         pl.col("target"), pl.col("bits").alias("best_hit_idx")
@@ -47,8 +45,8 @@ def process_alignments(tblastn_output: Path, transcriptome_fasta: Path, proteome
     good_hits = grouped.join(best_hits, on='target').with_columns(cs.list().list.get(pl.col("best_hit_idx")))
 
     # Load the transcriptome and proteome
-    transcripts = pyfastx.Fasta(str(transcriptome_fasta))
-    proteins = pyfastx.Fasta(str(proteome_fasta))
+    transcripts = {record.name : record.seq for record in pyfastx.Fasta(str(transcriptome_fasta))}
+    proteins    = {record.name: record.seq  for record in pyfastx.Fasta(str(proteome_fasta))}
 
     records = []
     for row in good_hits.iter_rows(named=True):

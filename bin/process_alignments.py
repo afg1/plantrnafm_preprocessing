@@ -54,7 +54,7 @@ def process_alignments(tblastn_output: Path, transcriptome_fasta: Path, proteome
         if transcript_id not in transcripts:
             continue
 
-        transcript_seq = transcripts[transcript_id].seq
+        transcript_seq = transcripts[transcript_id]
         seq_len = len(transcript_seq)
 
         # mmseqs gives 1-based coordinates
@@ -77,7 +77,7 @@ def process_alignments(tblastn_output: Path, transcriptome_fasta: Path, proteome
         # Check if protein starts with Methionine
         starts_with_met = False
         if transcript_id in proteins:
-            protein_seq = proteins[transcript_id].seq
+            protein_seq = proteins[transcript_id]
             starts_with_met = protein_seq[0] == 'M' if len(protein_seq) > 0 else False
 
         records.append(
